@@ -76,14 +76,14 @@ export const maleProgramDays: WorkoutDay[] = [
     exercises: [
       { id: 'incline-press', name: 'Press inclinado con barra', exerciseDbQuery: 'barbell incline bench press', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'barbell-incline-bench-press', notes: 'Énfasis pectoral superior' },
-      { id: 'incline-dumbbell-fly', name: 'Fly inclinado con mancuernas', exerciseDbQuery: 'dumbbell incline fly', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+      { id: 'incline-dumbbell-fly', name: 'Fly inclinado con mancuernas', exerciseDbQuery: 'dumbbell incline chest flys', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-incline-fly' },
       { id: 'seated-military', name: 'Press militar sentado', exerciseDbQuery: 'dumbbell shoulder press', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-shoulder-press' },
-      { id: 'lateral-raises', name: 'Elevaciones laterales', exerciseDbQuery: 'dumbbell lateral raise', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+      { id: 'lateral-raises', name: 'Elevaciones laterales', exerciseDbQuery: 'lateral raise', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-lateral-raise', notes: 'Para anchura de hombros' },
-      { id: 'tricep-pushdown', name: 'Extensión tríceps en polea', exerciseDbQuery: 'cable triceps pushdown', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
-        muscleWikiSlug: 'cable-tricep-pushdown' },
+      { id: 'tricep-pushdown', name: 'Extensión tríceps en polea', exerciseDbQuery: 'cable tricep pushdown', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+        muscleWikiSlug: 'cable-tricep-rope-pushdown' },
     ]
   },
   {
@@ -91,16 +91,16 @@ export const maleProgramDays: WorkoutDay[] = [
     label: 'Martes',
     focus: 'Lower A — Bisagra + glúteo',
     exercises: [
-      { id: 'rdl', name: 'Romanian Deadlift', exerciseDbQuery: 'romanian deadlift', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+      { id: 'rdl', name: 'Romanian Deadlift', exerciseDbQuery: 'barbell romanian deadlift', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'barbell-romanian-deadlift', notes: 'Bisagra principal, rodillas seguras' },
       { id: 'hip-thrust', name: 'Hip Thrust con barra', exerciseDbQuery: 'barbell hip thrust', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'barbell-hip-thrust' },
-      { id: 'leg-curl', name: 'Leg Curl acostado', exerciseDbQuery: 'lying leg curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
-        muscleWikiSlug: 'lying-leg-curl' },
+      { id: 'leg-curl', name: 'Leg Curl acostado', exerciseDbQuery: 'seated leg curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+        muscleWikiSlug: 'machine-seated-leg-curl' },
       { id: 'bulgarian-split', name: 'Bulgarian Split Squat', exerciseDbQuery: 'dumbbell bulgarian split squat', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-bulgarian-split-squat', notes: 'Peso moderado, rango controlado' },
       { id: 'calf-raise', name: 'Calf Raise en máquina', exerciseDbQuery: 'calf raise', sets: '4', reps: '12–15', tempo: '2-1-2', rest: '60 seg',
-        muscleWikiSlug: 'machine-calf-raise' },
+        muscleWikiSlug: 'calf-raises' },
     ]
   },
   {
@@ -108,15 +108,15 @@ export const maleProgramDays: WorkoutDay[] = [
     label: 'Jueves',
     focus: 'Upper B — Pull + brazos',
     exercises: [
-      { id: 'pulldown', name: 'Jalón al pecho o dominadas', exerciseDbQuery: 'lat pulldown', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+      { id: 'pulldown', name: 'Jalón al pecho o dominadas', exerciseDbQuery: 'cable lat pulldown', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'cable-lat-pulldown' },
       { id: 'cable-row', name: 'Remo en cable sentado', exerciseDbQuery: 'cable seated row', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
-        muscleWikiSlug: 'cable-seated-row' },
+        muscleWikiSlug: 'machine-seated-cable-row' },
       { id: 'face-pull', name: 'Face Pull', exerciseDbQuery: 'face pull', sets: '3', reps: '15', tempo: '2-1-2', rest: '60 seg',
-        muscleWikiSlug: 'cable-face-pull', notes: 'Salud de hombros' },
-      { id: 'hammer-curl', name: 'Curl martillo', exerciseDbQuery: 'dumbbell hammer curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+        muscleWikiSlug: 'cable-bar-face-pull', notes: 'Salud de hombros' },
+      { id: 'hammer-curl', name: 'Curl martillo', exerciseDbQuery: 'hammer curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-hammer-curl' },
-      { id: 'concentration-curl', name: 'Curl concentrado', exerciseDbQuery: 'dumbbell concentration curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
+      { id: 'concentration-curl', name: 'Curl concentrado', exerciseDbQuery: 'concentration curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'dumbbell-concentration-curl' },
     ]
   },
@@ -126,14 +126,14 @@ export const maleProgramDays: WorkoutDay[] = [
     focus: 'Lower B — Cuáds suave + core',
     exercises: [
       { id: 'leg-press', name: 'Prensa a 45° (pisada alta)', exerciseDbQuery: 'leg press', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
-        muscleWikiSlug: 'sled-leg-press', notes: 'Pisada alta para rodillas' },
+        muscleWikiSlug: 'sled-45-degrees-leg-press', notes: 'Pisada alta para rodillas' },
       { id: 'leg-extension', name: 'Leg Extension (0°–60° rango)', exerciseDbQuery: 'leg extension', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase',
         muscleWikiSlug: 'machine-leg-extension', notes: 'Solo rango parcial, sin estrés patelar' },
-      { id: 'adductor', name: 'Aductor en máquina', exerciseDbQuery: 'adductor', sets: '3', reps: '15', tempo: '2-1-2', rest: '60 seg',
+      { id: 'adductor', name: 'Aductor en máquina', exerciseDbQuery: 'hip adduction', sets: '3', reps: '15', tempo: '2-1-2', rest: '60 seg',
         muscleWikiSlug: 'machine-hip-adduction' },
       { id: 'plank', name: 'Plank', exerciseDbQuery: 'plank', sets: '3', reps: '30–60 seg', tempo: 'isométrico', rest: '60 seg',
         muscleWikiSlug: 'plank' },
-      { id: 'ab-wheel', name: 'Rueda abdominal', exerciseDbQuery: 'ab wheel', sets: '3', reps: '8–12', tempo: '3-1-1', rest: '90 seg',
+      { id: 'ab-wheel', name: 'Rueda abdominal', exerciseDbQuery: 'ab wheel rollout', sets: '3', reps: '8–12', tempo: '3-1-1', rest: '90 seg',
         muscleWikiSlug: 'ab-wheel-rollout' },
     ]
   }
@@ -159,12 +159,12 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'leg-curl-f',
         name: 'Leg Curl acostada',
-        exerciseDbQuery: 'lying leg curl',
+        exerciseDbQuery: 'seated leg curl',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
         rest: '2 min',
-        muscleWikiSlug: 'lying-leg-curl',
+        muscleWikiSlug: 'machine-seated-leg-curl',
         notes: 'Isquiotibiales aislados, sin pie.'
       },
       {
@@ -181,7 +181,7 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'aductor-f',
         name: 'Aductor en máquina (sentada)',
-        exerciseDbQuery: 'adductor',
+        exerciseDbQuery: 'hip adduction',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
@@ -210,7 +210,7 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'pulldown-f',
         name: 'Jalón al pecho (agarre ancho)',
-        exerciseDbQuery: 'lat pulldown',
+        exerciseDbQuery: 'cable lat pulldown',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
@@ -226,13 +226,13 @@ export const femaleProgramDays: WorkoutDay[] = [
         reps: '3–5',
         tempo: '3-1-1',
         rest: '2 min',
-        muscleWikiSlug: 'cable-seated-row',
+        muscleWikiSlug: 'machine-seated-cable-row',
         notes: 'Espalda media. Postura erguida.'
       },
       {
         id: 'lateral-f',
         name: 'Elevaciones laterales (muy liviano)',
-        exerciseDbQuery: 'dumbbell lateral raise',
+        exerciseDbQuery: 'lateral raise',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
@@ -248,7 +248,7 @@ export const femaleProgramDays: WorkoutDay[] = [
         reps: '3–5',
         tempo: '2-1-2',
         rest: '90 seg',
-        muscleWikiSlug: 'cable-face-pull',
+        muscleWikiSlug: 'cable-bar-face-pull',
         notes: 'Salud de hombros y postura. Imprescindible.'
       },
       {
@@ -276,7 +276,7 @@ export const femaleProgramDays: WorkoutDay[] = [
         reps: '3–5',
         tempo: '3-1-1',
         rest: '2 min',
-        muscleWikiSlug: 'sled-leg-press',
+        muscleWikiSlug: 'sled-45-degrees-leg-press',
         notes: 'Pisada alta: más glúteo, menos rodilla. F1 sin carga en pie.'
       },
       {
@@ -293,7 +293,7 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'goblet-f',
         name: 'Sentadilla Goblet con mancuerna (Fase 2+)',
-        exerciseDbQuery: 'dumbbell goblet squat',
+        exerciseDbQuery: 'goblet squat',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
@@ -355,7 +355,7 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'curl-f',
         name: 'Curl bíceps con mancuernas',
-        exerciseDbQuery: 'dumbbell bicep curl',
+        exerciseDbQuery: 'dumbbell curl',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
@@ -366,12 +366,12 @@ export const femaleProgramDays: WorkoutDay[] = [
       {
         id: 'tricep-f',
         name: 'Extensión tríceps en polea alta',
-        exerciseDbQuery: 'cable triceps pushdown',
+        exerciseDbQuery: 'cable tricep pushdown',
         sets: '2–3',
         reps: '3–5',
         tempo: '3-1-1',
         rest: '90 seg',
-        muscleWikiSlug: 'cable-tricep-pushdown',
+        muscleWikiSlug: 'cable-tricep-rope-pushdown',
         notes: 'Tríceps firme. El músculo más importante para el aspecto del brazo.'
       },
       {
