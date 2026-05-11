@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import BottomNav from '@/components/BottomNav'
-import { phaseConfigs } from '@/lib/program-data'
+import { getPhaseConfigs } from '@/lib/program-data'
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<{ display_name: string; program: string; current_phase: number; current_week: number } | null>(null)
@@ -45,7 +45,7 @@ export default function ProfilePage() {
     </div>
   )
 
-  const currentPhase = phaseConfigs.find(p => p.phase === profile.current_phase)!
+  const currentPhase = getPhaseConfigs(profile.program as 'male' | 'female').find(p => p.phase === profile.current_phase)!
 
   return (
     <div className="page fade-in">
@@ -79,7 +79,7 @@ export default function ProfilePage() {
       <div className="card" style={{ marginBottom: 16 }}>
         <p style={{ fontSize: 12, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>Avanzar fase / semana</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {phaseConfigs.map(pc => (
+          {getPhaseConfigs(profile.program as 'male' | 'female').map(pc => (
             <div key={pc.phase}>
               <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>
                 Fase {pc.phase} — {pc.name}

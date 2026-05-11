@@ -4,7 +4,7 @@ export type ProgramType = 'male' | 'female'
 export interface Exercise {
   id: string
   name: string
-  exerciseDbQuery: string // query to search in ExerciseDB
+  exerciseDbQuery: string
   sets: string
   reps: string
   tempo: string
@@ -67,6 +67,42 @@ export const phaseConfigs: PhaseConfig[] = [
   }
 ]
 
+export const femalePhaseConfigs: PhaseConfig[] = [
+  {
+    phase: 1,
+    name: 'Adaptación — pie protegido',
+    weeks: 'Semanas 1–4',
+    goal: 'Reactivar sin cargar el pie, construir el hábito',
+    reps: '3–5',
+    tempo: '3-1-1',
+    rest: '2 min',
+    rir: '3–4',
+    cardio: 'Bici estática 20–25 min'
+  },
+  {
+    phase: 2,
+    name: 'Progresión — primer carga de pie',
+    weeks: 'Semanas 5–8',
+    goal: 'Introducir ejercicios bipodales con cuidado',
+    reps: '3–5',
+    tempo: '3-1-1',
+    rest: '2 min',
+    rir: '2–3',
+    cardio: 'Bici + elíptica 30 min'
+  },
+  {
+    phase: 3,
+    name: 'Densidad + definición',
+    weeks: 'Semanas 9–12',
+    goal: 'Fortalecer lo ganado, maximizar pérdida de grasa',
+    reps: '3–5',
+    tempo: '4-1-1',
+    rest: '2 min',
+    rir: '1–2',
+    cardio: '3× bici/elíptica + treadmill inclinado'
+  }
+]
+
 export const maleProgramDays: WorkoutDay[] = [
   {
     key: 'upper-a',
@@ -120,15 +156,15 @@ export const maleProgramDays: WorkoutDay[] = [
 
 export const femaleProgramDays: WorkoutDay[] = [
   {
-    key: 'lower-a',
+    key: 'lower-a-f',
     label: 'Lunes',
     focus: 'Lower A — Glúteo + isquios',
     exercises: [
-      { id: 'hip-thrust-f', name: 'Hip Thrust con barra', exerciseDbQuery: 'barbell hip thrust', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase', notes: 'Ejercicio principal del programa femenino' },
-      { id: 'rdl-f', name: 'Romanian Deadlift', exerciseDbQuery: 'romanian deadlift', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'leg-curl-f', name: 'Leg Curl acostado', exerciseDbQuery: 'lying leg curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'sumo-squat', name: 'Sentadilla sumo con mancuerna', exerciseDbQuery: 'dumbbell sumo squat', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'abduction', name: 'Abductor en máquina', exerciseDbQuery: 'hip abduction', sets: '4', reps: '15', tempo: '2-1-2', rest: '60 seg' },
+      { id: 'hip-thrust-f', name: 'Hip Thrust con barra', exerciseDbQuery: 'barbell hip thrust', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Ejercicio principal. Sin carga en el pie, máximo glúteo.' },
+      { id: 'leg-curl-f', name: 'Leg Curl acostada', exerciseDbQuery: 'lying leg curl', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Isquiotibiales aislados, sin pie.' },
+      { id: 'abductor-f', name: 'Abductor en máquina (sentada)', exerciseDbQuery: 'hip abduction', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Glúteo medio. Sentada, cero carga en pie.' },
+      { id: 'aductor-f', name: 'Aductor en máquina (sentada)', exerciseDbQuery: 'adductor', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Cara interna del muslo.' },
+      { id: 'glute-bridge-f', name: 'Glute Bridge con banda', exerciseDbQuery: 'glute bridge', sets: '3', reps: '10–12', tempo: '2-1-2', rest: '60 seg', notes: 'Activación glúteo al final. Más reps, peso liviano.' },
     ]
   },
   {
@@ -136,39 +172,43 @@ export const femaleProgramDays: WorkoutDay[] = [
     label: 'Martes',
     focus: 'Upper A — Espalda + hombros',
     exercises: [
-      { id: 'pulldown-f', name: 'Jalón al pecho', exerciseDbQuery: 'lat pulldown', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'seated-row-f', name: 'Remo sentado en cable', exerciseDbQuery: 'cable seated row', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'lateral-f', name: 'Elevaciones laterales', exerciseDbQuery: 'dumbbell lateral raise', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase', notes: 'Definición de hombros sin volumen' },
-      { id: 'face-pull-f', name: 'Face Pull', exerciseDbQuery: 'face pull', sets: '3', reps: '15', tempo: '2-1-2', rest: '60 seg' },
-      { id: 'incline-press-f', name: 'Press inclinado liviano', exerciseDbQuery: 'dumbbell incline bench press', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
+      { id: 'pulldown-f', name: 'Jalón al pecho (agarre ancho)', exerciseDbQuery: 'lat pulldown', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Dorsal. Forma en V — hace la cintura parecer más angosta.' },
+      { id: 'seated-row-f', name: 'Remo sentada en cable', exerciseDbQuery: 'cable seated row', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Espalda media. Postura erguida.' },
+      { id: 'lateral-f', name: 'Elevaciones laterales (muy liviano)', exerciseDbQuery: 'dumbbell lateral raise', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Hombros anchos sin volumen. Peso muy liviano, lejos del fallo.' },
+      { id: 'face-pull-f', name: 'Face Pull en polea', exerciseDbQuery: 'face pull', sets: '2–3', reps: '3–5', tempo: '2-1-2', rest: '90 seg', notes: 'Salud de hombros y postura. Imprescindible.' },
+      { id: 'shrug-f', name: 'Encogimiento de hombros (mancuernas)', exerciseDbQuery: 'dumbbell shrug', sets: '2', reps: '3–5', tempo: '2-1-2', rest: '90 seg' },
     ]
   },
   {
     key: 'lower-b-f',
     label: 'Jueves',
-    focus: 'Lower B — Cuáds + core',
+    focus: 'Lower B — Cuádriceps + core',
     exercises: [
-      { id: 'bulgarian-f', name: 'Bulgarian Split Squat', exerciseDbQuery: 'dumbbell bulgarian split squat', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'leg-press-f', name: 'Prensa a 45°', exerciseDbQuery: 'leg press', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'calf-f', name: 'Calf Raise', exerciseDbQuery: 'calf raise', sets: '4', reps: '15', tempo: '2-1-2', rest: '60 seg' },
-      { id: 'plank-f', name: 'Plank', exerciseDbQuery: 'plank', sets: '3', reps: '30–45 seg', tempo: 'isométrico', rest: '60 seg' },
-      { id: 'dead-bug', name: 'Dead Bug', exerciseDbQuery: 'dead bug', sets: '3', reps: '8 c/lado', tempo: '3-1-1', rest: '60 seg' },
+      { id: 'leg-press-f', name: 'Prensa a 45° (pisada alta)', exerciseDbQuery: 'leg press', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Pisada alta: más glúteo, menos rodilla. Fase 1 sin carga en pie.' },
+      { id: 'leg-ext-f', name: 'Leg Extension (0°–60° rango parcial)', exerciseDbQuery: 'leg extension', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Solo rango parcial. Sin estrés patelar.' },
+      { id: 'goblet-f', name: 'Sentadilla Goblet (Fase 2+)', exerciseDbQuery: 'dumbbell goblet squat', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Solo desde Fase 2. Si hay molestia en el pie, omitir.' },
+      { id: 'plank-f', name: 'Plancha (en rodillas si necesita)', exerciseDbQuery: 'plank', sets: '3', reps: '20–40 seg', tempo: 'isométrico', rest: '60 seg', notes: 'Empezar en rodillas. Progresar a plancha completa.' },
+      { id: 'dead-bug-f', name: 'Dead Bug', exerciseDbQuery: 'dead bug', sets: '3', reps: '6 c/lado', tempo: '3-1-1', rest: '60 seg', notes: 'Core profundo. Movimiento lento y controlado.' },
     ]
   },
   {
-    key: 'full-f',
+    key: 'upper-b-f',
     label: 'Viernes',
-    focus: 'Full body — Potencia + brazos',
+    focus: 'Upper B — Pecho + brazos',
     exercises: [
-      { id: 'cable-pull-f', name: 'Pull-through en cable', exerciseDbQuery: 'cable pull through', sets: '4', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'step-up', name: 'Step-up con mancuernas', exerciseDbQuery: 'dumbbell step up', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'curl-f', name: 'Curl bíceps con mancuernas', exerciseDbQuery: 'dumbbell bicep curl', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'tricep-f', name: 'Extensión tríceps en polea', exerciseDbQuery: 'cable triceps pushdown', sets: '3', reps: 'según fase', tempo: 'según fase', rest: 'según fase' },
-      { id: 'glute-bridge-f', name: 'Glute Bridge con banda', exerciseDbQuery: 'glute bridge', sets: '4', reps: '20', tempo: '2-1-2', rest: '45 seg' },
+      { id: 'incline-press-f', name: 'Press inclinado con mancuernas (liviano)', exerciseDbQuery: 'dumbbell incline bench press', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Peso que permita parar 2–3 reps antes del fallo.' },
+      { id: 'fly-f', name: 'Fly en máquina o cable bajo', exerciseDbQuery: 'cable fly', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Definición de pecho sin volumen.' },
+      { id: 'curl-f', name: 'Curl bíceps con mancuernas', exerciseDbQuery: 'dumbbell bicep curl', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Lejos del fallo. Tono sin volumen.' },
+      { id: 'tricep-f', name: 'Extensión tríceps en polea alta', exerciseDbQuery: 'cable triceps pushdown', sets: '2–3', reps: '3–5', tempo: '3-1-1', rest: '90 seg', notes: 'Tríceps firme. Evita "brazos bingo".' },
+      { id: 'dips-assisted-f', name: 'Dips asistidos en máquina', exerciseDbQuery: 'assisted dip', sets: '2', reps: '3–5', tempo: '3-1-1', rest: '2 min', notes: 'Empezar con mucha asistencia. Reducir con el tiempo.' },
     ]
   }
 ]
 
 export function getProgramDays(program: ProgramType): WorkoutDay[] {
   return program === 'male' ? maleProgramDays : femaleProgramDays
+}
+
+export function getPhaseConfigs(program: ProgramType): PhaseConfig[] {
+  return program === 'male' ? phaseConfigs : femalePhaseConfigs
 }
