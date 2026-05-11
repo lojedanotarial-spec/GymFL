@@ -33,7 +33,7 @@ export default function LoginPage() {
     <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
       <div style={{ width: '100%', maxWidth: 380 }}>
         <div style={{ marginBottom: 40, textAlign: 'center' }}>
-          <h1 style={{ fontSize: 56, color: 'var(--accent)', marginBottom: 4 }}>VI GYM</h1>
+          <h1 style={{ fontSize: 56, color: 'var(--accent)', marginBottom: 4 }}>GYM-FL</h1>
           <p style={{ color: 'var(--muted)', fontSize: 14 }}>Visual Impact — versión actualizada</p>
         </div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
