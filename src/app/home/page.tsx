@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
-import { getProgramDays, phaseConfigs } from '@/lib/program-data'
+import { getProgramDays, getPhaseConfigs } from '@/lib/program-data'
 
 export default function HomePage() {
   const [profile, setProfile] = useState<{ display_name: string; program: 'male'|'female'; current_phase: number; current_week: number } | null>(null)
@@ -35,7 +35,7 @@ export default function HomePage() {
   if (!profile) return null
 
   const days = getProgramDays(profile.program)
-  const phaseConfig = phaseConfigs.find(p => p.phase === profile.current_phase)!
+  const phaseConfig = getPhaseConfigs(profile.program).find(p => p.phase === profile.current_phase)!
   const dayNames = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']
   const today = new Date().getDay() // 0=Sun
   const todayName = dayNames[today]
