@@ -44,11 +44,7 @@ export async function getExerciseById(id: string): Promise<ExerciseDBItem | null
 
 export async function searchExercisesByName(name: string): Promise<ExerciseDBItem[]> {
   try {
-    const encoded = encodeURIComponent(name.toLowerCase())
-    const res = await fetch(
-      `${BASE}/exercises/name/${encoded}?limit=5`,
-      { next: { revalidate: 86400 } }
-    )
+    const res = await fetch(`/api/exercises?q=${encodeURIComponent(name)}`)
     if (!res.ok) return []
     return res.json()
   } catch {
