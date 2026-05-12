@@ -58,7 +58,7 @@ export default function HomePage() {
 
   const workoutMap: Record<number, number> = profile.program === 'male'
     ? { 1: 0, 4: 0, 2: 1, 5: 1 }
-    : { 1: 0, 2: 1, 4: 2, 5: 3 }
+    : { 1: 0, 4: 0, 2: 1, 5: 1 }
 
   const todayWorkoutIdx = workoutMap[today]
   const isRestDay = todayWorkoutIdx === undefined
