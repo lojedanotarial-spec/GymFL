@@ -32,39 +32,39 @@ export interface PhaseConfig {
   cardio: string
 }
 
-export const phaseConfigs: PhaseConfig[] = [
+export const malePhaseConfigs: PhaseConfig[] = [
   {
     phase: 1,
-    name: 'Activación y volumen',
+    name: 'Adaptación + Volumen',
     weeks: 'Semanas 1–4',
-    goal: 'Reactivar patrones motores, acumular volumen',
+    goal: 'Reactivar patrones, construir base, evaluar rodillas',
     reps: '10–12',
     tempo: '3-1-1',
-    rest: '90 seg',
+    rest: '75–90 seg',
     rir: '3–4',
-    cardio: '2× LISS 20 min'
+    cardio: '20 min elíptica post-entreno'
   },
   {
     phase: 2,
-    name: 'Hipertrofia + déficit',
+    name: 'Fuerza + Densidad',
     weeks: 'Semanas 5–8',
-    goal: 'Ganar músculo y perder grasa simultáneamente',
-    reps: '8–10',
+    goal: 'Subir cargas, densificar músculo, recomposición activa',
+    reps: '6–8',
     tempo: '3-1-1',
-    rest: '75–90 seg',
-    rir: '1–2',
-    cardio: '2× HIIT + 1× LISS'
+    rest: '2 min',
+    rir: '2',
+    cardio: '15 min HIIT elíptica + 10 min treadmill inclinado'
   },
   {
     phase: 3,
-    name: 'Densidad + definición',
+    name: 'Definición Máxima',
     weeks: 'Semanas 9–12',
-    goal: 'Endurecer el músculo, afinar definición',
-    reps: '4–6',
+    goal: 'Máxima densidad muscular, reducción de grasa',
+    reps: '3–5',
     tempo: '4-1-1',
     rest: '2–3 min',
     rir: '1',
-    cardio: '3× LISS en ayunas'
+    cardio: '10 min HIIT elíptica + 15 min treadmill inclinado'
   }
 ]
 
@@ -390,5 +390,5 @@ export const femalePhaseConfigs: PhaseConfig[] = [
 ]
 
 export function getPhaseConfigs(program: ProgramType): PhaseConfig[] {
-  return program === 'male' ? phaseConfigs : femalePhaseConfigs
+  return program === 'male' ? malePhaseConfigs : femalePhaseConfigs
 }
