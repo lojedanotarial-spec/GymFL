@@ -10,6 +10,8 @@ import { getProgramDays, getPhaseConfigs } from '@/lib/program-data'
 export default function HomePage() {
   const [profile, setProfile] = useState<{ display_name: string; program: 'male'|'female'; current_phase: number; current_week: number } | null>(null)
   const [loading, setLoading] = useState(true)
+  const [completedToday, setCompletedToday] = useState<string[]>([])
+  const [selectedDayIdx, setSelectedDayIdx] = useState<number | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -20,6 +22,20 @@ export default function HomePage() {
       const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single()
       if (!data?.display_name || data.display_name === user.email) { router.push('/setup'); return }
       setProfile(data)
+
+      // Check which workouts were completed today
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const { data: logs } = await supabase
+        .from('workout_logs')
+        .select('day')
+        .eq('user_id', user.id)
+        .gte('created_at', today.toISOString())
+      if (logs) {
+        const days = [...new Set(logs.map((l: { day: string }) => l.day))]
+        setCompletedToday(days)
+      }
+
       setLoading(false)
     }
     load()
@@ -37,17 +53,19 @@ export default function HomePage() {
   const days = getProgramDays(profile.program)
   const phaseConfig = getPhaseConfigs(profile.program).find(p => p.phase === profile.current_phase)!
   const dayNames = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']
-  const today = new Date().getDay() // 0=Sun
+  const today = new Date().getDay()
   const todayName = dayNames[today]
 
-  // Map day index to workout
   const workoutMap: Record<number, number> = profile.program === 'male'
-    ? { 1: 0, 4: 0, 2: 1, 5: 1 } // Mon/Thu=Pull(0), Tue/Fri=Push(1)
+    ? { 1: 0, 4: 0, 2: 1, 5: 1 }
     : { 1: 0, 2: 1, 4: 2, 5: 3 }
 
   const todayWorkoutIdx = workoutMap[today]
-  const todayWorkout = todayWorkoutIdx !== undefined ? days[todayWorkoutIdx] : null
-  const isRestDay = todayWorkout === null
+  const isRestDay = todayWorkoutIdx === undefined
+
+  // Selected day — default to today's workout
+  const activeDayIdx = selectedDayIdx !== null ? selectedDayIdx : (todayWorkoutIdx ?? 0)
+  const activeWorkout = days[activeDayIdx]
 
   return (
     <div className="page fade-in">
@@ -82,8 +100,55 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Today's workout or rest */}
-      {isRestDay ? (
+      {/* Day selector */}
+      <div style={{ marginBottom: 20 }}>
+        <p style={{ fontSize: 12, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Entrenamientos</p>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${days.length}, 1fr)`, gap: 8 }}>
+          {days.map((day, idx) => {
+            const isActive = activeDayIdx === idx
+            const isDoneToday = completedToday.includes(day.key)
+            const isToday = workoutMap[today] === idx
+
+            let bg = 'var(--bg2)'
+            let border = '1px solid var(--border)'
+            let color = 'var(--text)'
+
+            if (isDoneToday) {
+              bg = 'rgba(251,191,36,0.1)'
+              border = '1px solid rgba(251,191,36,0.5)'
+              color = '#FBBf24'
+            } else if (isActive) {
+              bg = 'rgba(200,241,53,0.08)'
+              border = '1px solid var(--accent)'
+              color = 'var(--accent)'
+            }
+
+            const label = day.focus.split('—')[0].trim()
+
+            return (
+              <button
+                key={day.key}
+                onClick={() => setSelectedDayIdx(idx)}
+                style={{ background: bg, border, borderRadius: 10, padding: '12px 8px', cursor: 'pointer', textAlign: 'center', position: 'relative' }}
+              >
+                {isToday && !isDoneToday && (
+                  <div style={{ position: 'absolute', top: 6, right: 6, width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
+                )}
+                {isDoneToday && (
+                  <div style={{ position: 'absolute', top: 6, right: 6, fontSize: 10 }}>✓</div>
+                )}
+                <p style={{ fontSize: 12, fontWeight: 600, color, marginBottom: 2 }}>{label}</p>
+                <p style={{ fontSize: 10, color: 'var(--muted)', lineHeight: 1.3 }}>
+                  {day.focus.split('—')[1]?.trim() || ''}
+                </p>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Selected workout */}
+      {isRestDay && selectedDayIdx === null ? (
         <div style={{ textAlign: 'center', padding: '40px 20px' }}>
           <p style={{ fontSize: 48, marginBottom: 12 }}>😴</p>
           <h2 style={{ fontSize: 28, color: 'var(--muted)', marginBottom: 8 }}>DÍA DE DESCANSO</h2>
@@ -91,36 +156,24 @@ export default function HomePage() {
         </div>
       ) : (
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <div>
-              <p style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 2 }}>Entrenamiento de hoy</p>
-              <h2 style={{ fontSize: 22 }}>{todayWorkout!.focus.toUpperCase()}</h2>
-            </div>
-            <span className="pill pill-muted">{todayWorkout!.exercises.length} ejercicios</span>
-          </div>
-
           {/* Exercise list preview */}
           <div style={{ marginBottom: 20 }}>
-            {todayWorkout!.exercises.map((ex, i) => (
-              <div key={ex.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: i < todayWorkout!.exercises.length - 1 ? '1px solid var(--border)' : 'none' }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--bg3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontFamily: 'var(--font-display)', color: 'var(--muted)', flexShrink: 0 }}>
+            {activeWorkout.exercises.map((ex, i) => (
+              <div key={ex.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: i < activeWorkout.exercises.length - 1 ? '1px solid var(--border)' : 'none' }}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--bg3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: 'var(--muted)', flexShrink: 0 }}>
                   {i + 1}
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: 14, fontWeight: 500 }}>{ex.name}</p>
                   {ex.notes && <p style={{ fontSize: 12, color: 'var(--muted)' }}>{ex.notes}</p>}
                 </div>
-                <span style={{ fontSize: 12, color: 'var(--muted)' }}>{ex.sets} series</span>
               </div>
             ))}
           </div>
 
-          <Link
-            href={`/workout/${todayWorkout!.key}?phase=${profile.current_phase}`}
-            style={{ display: 'block' }}
-          >
+          <Link href={`/workout/${activeWorkout.key}?phase=${profile.current_phase}`} style={{ display: 'block' }}>
             <button className="btn-primary" style={{ fontSize: 16, padding: '14px', fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}>
-              EMPEZAR ENTRENAMIENTO →
+              EMPEZAR {activeWorkout.focus.split('—')[0].trim().toUpperCase()} →
             </button>
           </Link>
         </>
@@ -147,6 +200,7 @@ export default function HomePage() {
       </div>
 
       <BottomNav />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 }

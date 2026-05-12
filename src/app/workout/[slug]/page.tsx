@@ -6,8 +6,8 @@ import { useRouter, useParams, useSearchParams } from 'next/navigation'
 import { getProgramDays } from '@/lib/program-data'
 
 function getMuscleWikiUrl(name: string, slug?: string) {
-  const s = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  return `https://musclewiki.com/exercise/${s}?model=m`
+  if (slug) return `https://musclewiki.com/exercise/${slug}`
+  return `https://musclewiki.com/exercise/${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
 }
 
 interface SetData { reps: string; weight: string; done: boolean }
@@ -66,30 +66,7 @@ export default function WorkoutPage() {
     load()
   }, [])
 
-
-  
   const day = profile ? getProgramDays(profile.program).find(d => d.key === dayKey) : null
-
-  useEffect(() => {
-    if (!day) return
-    day.exercises.forEach(async ex => {
-      if (overrides[ex.id]) return
-      const res = await fetch(`/api/exercises?q=${encodeURIComponent(ex.exerciseDbQuery)}`)
-      const data = await res.json()
-      if (data[0]?.videoUrl) {
-        setOverrides(prev => ({
-          ...prev,
-          [ex.id]: {
-            exercise_id: ex.id,
-            custom_name: prev[ex.id]?.custom_name || ex.name,
-            custom_video_url: data[0].videoUrl,
-            custom_instructions: prev[ex.id]?.custom_instructions || data[0].instructions || [],
-            custom_target: prev[ex.id]?.custom_target || data[0].target || ''
-          }
-        }))
-      }
-    })
-  }, [day?.key])
 
   useEffect(() => {
     if (!day) return
@@ -129,7 +106,7 @@ export default function WorkoutPage() {
     }))
     await supabase.from('workout_logs').insert(inserts)
     setSaving(false); setSaved(true)
-    setTimeout(() => router.push('/home'), 1200)
+    setTimeout(() => router.push(`/cardio?phase=${phase}`), 1200)
   }
 
   async function doSearch(q: string) {
