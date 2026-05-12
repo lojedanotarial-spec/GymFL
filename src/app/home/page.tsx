@@ -42,7 +42,7 @@ export default function HomePage() {
 
   // Map day index to workout
   const workoutMap: Record<number, number> = profile.program === 'male'
-    ? { 1: 0, 2: 1, 4: 2, 5: 3 } // Mon=UpperA, Tue=LowerA, Thu=UpperB, Fri=LowerB
+    ? { 1: 0, 4: 0, 2: 1, 5: 1 } // Mon/Thu=Pull(0), Tue/Fri=Push(1)
     : { 1: 0, 2: 1, 4: 2, 5: 3 }
 
   const todayWorkoutIdx = workoutMap[today]

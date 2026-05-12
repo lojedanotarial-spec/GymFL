@@ -6,8 +6,8 @@ import { useRouter, useParams, useSearchParams } from 'next/navigation'
 import { getProgramDays } from '@/lib/program-data'
 
 function getMuscleWikiUrl(name: string, slug?: string) {
-  const slug_ = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  return `https://musclewiki.com/en/exercise/${slug_}`
+  const s = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  return `https://musclewiki.com/exercise/${s}?model=m`
 }
 
 interface SetData { reps: string; weight: string; done: boolean }
