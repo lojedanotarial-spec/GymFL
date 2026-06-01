@@ -156,6 +156,12 @@ export default function HomePage() {
         </div>
       ) : (
         <>
+          <Link href={`/workout/${activeWorkout.key}?phase=${profile.current_phase}`} style={{ display: 'block', marginBottom: 20 }}>
+            <button className="btn-primary" style={{ fontSize: 16, padding: '14px', fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}>
+              EMPEZAR {activeWorkout.focus.split('—')[0].trim().toUpperCase()} →
+            </button>
+          </Link>
+
           {/* Exercise list preview */}
           <div style={{ marginBottom: 20 }}>
             {activeWorkout.exercises.map((ex, i) => (
@@ -170,12 +176,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-
-          <Link href={`/workout/${activeWorkout.key}?phase=${profile.current_phase}`} style={{ display: 'block' }}>
-            <button className="btn-primary" style={{ fontSize: 16, padding: '14px', fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}>
-              EMPEZAR {activeWorkout.focus.split('—')[0].trim().toUpperCase()} →
-            </button>
-          </Link>
         </>
       )}
 

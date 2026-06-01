@@ -274,7 +274,7 @@ export default function WorkoutPage() {
       {/* Search Modal */}
       {searchTarget && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 100, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ background: 'var(--bg2)', borderRadius: '16px 16px 0 0', marginTop: 'auto', maxHeight: '90dvh', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ background: 'var(--bg2)', borderRadius: '0 0 16px 16px', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <div style={{ padding: '16px 16px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: 20 }}>CAMBIAR EJERCICIO</h2>
               <button onClick={() => { setSearchTarget(null); setSearchQuery(''); setSearchResults([]); setPreviewVideo(null); }} style={{ background: 'none', border: 'none', color: 'var(--muted)', fontSize: 24, cursor: 'pointer', lineHeight: 1 }}>×</button>
