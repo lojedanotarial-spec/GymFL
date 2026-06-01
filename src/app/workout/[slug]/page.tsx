@@ -45,6 +45,7 @@ export default function WorkoutPage() {
   const [searchTarget, setSearchTarget] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [searchSuggestions, setSearchSuggestions] = useState<SearchResult[]>([])
   const [searching, setSearching] = useState(false)
   const [previewVideo, setPreviewVideo] = useState<string | null>(null)
   const router = useRouter()
@@ -118,6 +119,17 @@ export default function WorkoutPage() {
     setSearching(false)
   }
 
+  async function fetchSuggestions(exerciseDbQuery: string) {
+    const equipment = ['machine', 'barbell', 'dumbbell', 'cable', 'smith', 'kettlebell']
+    const broader = exerciseDbQuery.toLowerCase().split(' ').filter(w => !equipment.includes(w)).join(' ').trim()
+    if (!broader) return
+    setSearching(true)
+    const res = await fetch(`/api/exercises?q=${encodeURIComponent(broader)}`)
+    const data = await res.json()
+    setSearchSuggestions(data)
+    setSearching(false)
+  }
+
   async function selectExercise(exId: string, result: SearchResult) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
@@ -133,6 +145,7 @@ export default function WorkoutPage() {
     setSearchTarget(null)
     setSearchQuery('')
     setSearchResults([])
+    setSearchSuggestions([])
     setPreviewVideo(null)
   }
 
@@ -218,7 +231,7 @@ export default function WorkoutPage() {
                 {/* Action buttons */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
                   <button
-                    onClick={() => { setSearchTarget(ex.id); setSearchQuery(''); setSearchResults([]); }}
+                    onClick={() => { setSearchTarget(ex.id); setSearchQuery(''); setSearchResults([]); setSearchSuggestions([]); fetchSuggestions(ex.exerciseDbQuery); }}
                     style={{ padding: '8px', background: 'rgba(200,241,53,0.06)', border: '1px solid rgba(200,241,53,0.3)', borderRadius: 8, color: 'var(--accent)', fontSize: 13, cursor: 'pointer' }}
                   >
                     ↔ Cambiar
@@ -277,7 +290,7 @@ export default function WorkoutPage() {
           <div style={{ background: 'var(--bg2)', borderRadius: '0 0 16px 16px', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <div style={{ padding: '16px 16px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: 20 }}>CAMBIAR EJERCICIO</h2>
-              <button onClick={() => { setSearchTarget(null); setSearchQuery(''); setSearchResults([]); setPreviewVideo(null); }} style={{ background: 'none', border: 'none', color: 'var(--muted)', fontSize: 24, cursor: 'pointer', lineHeight: 1 }}>×</button>
+              <button onClick={() => { setSearchTarget(null); setSearchQuery(''); setSearchResults([]); setSearchSuggestions([]); setPreviewVideo(null); }} style={{ background: 'none', border: 'none', color: 'var(--muted)', fontSize: 24, cursor: 'pointer', lineHeight: 1 }}>×</button>
             </div>
             <div style={{ padding: '12px 16px' }}>
               <input
@@ -293,9 +306,11 @@ export default function WorkoutPage() {
               {!searching && searchQuery && searchResults.length === 0 && (
                 <p style={{ color: 'var(--muted)', fontSize: 13, textAlign: 'center', padding: 20 }}>Sin resultados</p>
               )}
-              {searchResults.map(result => (
+              {!searching && !searchQuery && searchSuggestions.length > 0 && (
+                <p style={{ fontSize: 11, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>Sugerencias</p>
+              )}
+              {(searchQuery ? searchResults : searchSuggestions).map(result => (
                 <div key={result.id} style={{ display: 'flex', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border)', alignItems: 'center' }}>
-                  {/* Video thumbnail */}
                   <div
                     onClick={() => setPreviewVideo(previewVideo === result.videoUrl ? null : result.videoUrl)}
                     style={{ width: 72, height: 72, background: 'var(--bg3)', borderRadius: 8, flexShrink: 0, overflow: 'hidden', cursor: 'pointer', position: 'relative' }}
